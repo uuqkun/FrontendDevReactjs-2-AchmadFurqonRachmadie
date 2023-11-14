@@ -3,5 +3,31 @@
   height: 100vh;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+
+  @apply font-quicksand;
+}
+
+
+.card__image { 
+
+}
+
+.card__detail {
+   @apply mt-6 mb-10;
+}
+
+.card__detail-rating { 
+
+}
+
+.card__detail-status { 
+  @apply flex justify-between;
+}
+
+.card__detail-container { 
+  
+}
+
+.card__detail-dot { 
+
 }

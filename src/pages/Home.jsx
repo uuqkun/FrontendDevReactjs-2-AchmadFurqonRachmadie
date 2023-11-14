@@ -1,9 +1,82 @@
-import React from 'react'
+import {
+  Button,
+  RadioFilter,
+  DropDownFilter,
+  Header,
+  FoodCard,
+} from "../components";
 
 const Home = () => {
-  return (
-    <div>Home</div>
-  )
-}
+  const restaurants = [
+    {
+      img: "",
+      title: "this is title",
+      rating: 4,
+      resType: "THAI",
+      level: "$$$",
+      isOpen: true,
+    },
+    {
+      img: "",
+      title: "this is title",
+      rating: 4,
+      resType: "THAI",
+      level: "$$$",
+      isOpen: true,
+    },
+    {
+      img: "",
+      title: "this is title",
+      rating: 4,
+      resType: "THAI",
+      level: "$$$",
+      isOpen: true,
+    },
+    {
+      img: "",
+      title: "this is title",
+      rating: 4,
+      resType: "THAI",
+      level: "$$$",
+      isOpen: true,
+    },
+  ];
 
-export default Home
+  return (
+    <main className="mx-auto w-[896px]">
+      {/* Header */}
+      <Header title="Restaurants" />
+
+      {/* filters */}
+      <section className="border-y-[1px] border-gray-100 flex justify-between gap-3 py-6 mb-20">
+        <span className="flex gap-6">
+          <p>Filter by: </p>
+          <RadioFilter />
+          <DropDownFilter />
+          <DropDownFilter />
+        </span>
+        <Button />
+      </section>
+
+      {/* cards */}
+      <section>
+        <h3 className="mb-6">All Restaurants</h3>
+        <ul className="flex gap-6">
+          {restaurants.map((item, index) => (
+            <FoodCard
+              key={index}
+              img={item.img}
+              title={item.title}
+              rating={item.rating}
+              level={item.level}
+              resType={"China"}
+              isOpen={true}
+            />
+          ))}
+        </ul>
+      </section>
+    </main>
+  );
+};
+
+export default Home;
