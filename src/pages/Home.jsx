@@ -10,7 +10,7 @@ const Home = () => {
   const restaurants = [
     {
       img: "",
-      title: "this is title",
+      title: "Restaurant xx",
       rating: 4,
       resType: "THAI",
       level: "$$$",
@@ -18,7 +18,7 @@ const Home = () => {
     },
     {
       img: "",
-      title: "this is title",
+      title: "Restaurant xx",
       rating: 4,
       resType: "THAI",
       level: "$$$",
@@ -26,7 +26,7 @@ const Home = () => {
     },
     {
       img: "",
-      title: "this is title",
+      title: "Restaurant xx",
       rating: 4,
       resType: "THAI",
       level: "$$$",
@@ -34,7 +34,7 @@ const Home = () => {
     },
     {
       img: "",
-      title: "this is title",
+      title: "Restaurant xx",
       rating: 4,
       resType: "THAI",
       level: "$$$",
@@ -42,7 +42,7 @@ const Home = () => {
     },
     {
       img: "",
-      title: "this is title",
+      title: "Restaurant xx",
       rating: 4,
       resType: "THAI",
       level: "$$$",
@@ -50,7 +50,7 @@ const Home = () => {
     },
     {
       img: "",
-      title: "this is title",
+      title: "Restaurant xx",
       rating: 4,
       resType: "THAI",
       level: "$$$",
@@ -58,7 +58,7 @@ const Home = () => {
     },
     {
       img: "",
-      title: "this is title",
+      title: "Restaurant xx",
       rating: 4,
       resType: "THAI",
       level: "$$$",
@@ -66,7 +66,7 @@ const Home = () => {
     },
     {
       img: "",
-      title: "this is title",
+      title: "Restaurant xx",
       rating: 4,
       resType: "THAI",
       level: "$$$",

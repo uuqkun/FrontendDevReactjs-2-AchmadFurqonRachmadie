@@ -17,7 +17,7 @@ const FoodCard = ({ img, title, rating, resType, level, isOpen }) => {
 
       {/* Restaurant Details */}
       <div className="card__detail">
-        <h5 className="font-medium">Lorem ipsum dolor sit.</h5>
+        <h5 className="font-medium">{title}</h5>
         <span className="card__detail-rating">
           <StarRating />
         </span>
