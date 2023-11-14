@@ -12,24 +12,24 @@ const Home = () => {
   const [restaurants, setRestaurants] = useState();
 
   useEffect(() => {
-    // const url =
-    //   "https://tripadvisor16.p.rapidapi.com/api/v1/restaurant/searchRestaurants?locationId=304554";
-    // const options = {
-    //   method: "GET",
-    //   headers: {
-    //     "X-RapidAPI-Key": "0fd4dad000msh0b64d9a2bffa832p174c5bjsn6de351fb3d8c",
-    //     "X-RapidAPI-Host": "tripadvisor16.p.rapidapi.com",
-    //   },
-    // };
+    const url =
+      "https://tripadvisor16.p.rapidapi.com/api/v1/restaurant/searchRestaurants?locationId=304554";
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "0fd4dad000msh0b64d9a2bffa832p174c5bjsn6de351fb3d8c",
+        "X-RapidAPI-Host": "tripadvisor16.p.rapidapi.com",
+      },
+    };
 
-    // useFetch(url, options)
-    //   .then((result) => {
-    //     setRestaurants(result);
+    useFetch(url, options)
+      .then((result) => {
+        setRestaurants(result);
 
-    //   })
-    //   .catch((ex) => console.log(ex));
+      })
+      .catch((ex) => console.log(ex));
 
-    setRestaurants(getDummyData);
+    // setRestaurants(getDummyData);
   }, []);
 
   
@@ -62,19 +62,11 @@ const Home = () => {
         <ul className="flex flex-wrap gap-6">
           {restaurants != null || restaurants != undefined ? (
             restaurants.map((item) => (
-              <RestaurantCard
-                key={item.restaurantsId}
-                img={item.heroImgUrl}
-                title={item.name}
-                rating={item.averageRating}
-                level={item.priceTag}
-                resType={item.establishmentTypeAndCuisineTags[0]}
-                isOpen={item.currentOpenStatusCategory}
-              />
+              <RestaurantCard key={item.restaurantsId} data={item}/>
             ))
           ) : (
             <div>
-              <h3>Thank you for your patience...</h3>
+              <h5 className="font-semibold">Thank you for your patience...</h5>
             </div>
           )}
         </ul>

@@ -3304,7 +3304,7 @@ const results = {
               ]
             }
           },
-          "heroImgUrl": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/ce/47/18/under-the-banyan-tree.jpg?w=2000&h=1300&s=1",
+          "heroImgUrl": "https://dynamic-mefdia-cdn.tripadvisor.com/media/photo-o/06/ce/47/18/under-the-banyan-tree.jpg?w=2000&h=1300&s=1",
           "heroImgRawHeight": 1333,
           "heroImgRawWidth": 2000,
           "squareImgUrl": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/ce/47/18/under-the-banyan-tree.jpg?w=200&h=200&s=1",

@@ -1,51 +1,90 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, StarRating } from ".";
 
-const RestaurantCard = ({ img, title, rating, resType, level, isOpen }) => {
+const RestaurantCard = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+  const [isValidImgUrl, setIsValidImgUrl] = useState(true);
+
+  const {
+    heroImgUrl,
+    name,
+    averageRating,
+    priceTag,
+    establishmentTypeAndCuisineTags,
+    currentOpenStatusCategory,
+  } = data;
+
   const handleModalOpen = () => {
     const modal = document.getElementById("modal");
     setIsModalOpen(!isModalOpen);
-    
+
     modal.showModal();
   };
-  
+
   const handleModalClose = () => {
     const modal = document.getElementById("modal");
     setIsModalOpen(!isModalOpen);
-    
+
     modal.close();
   };
+
+  useEffect(() => {
+    // Check image url(s)
+    const response = fetch(heroImgUrl);
+
+    response.then((succeed) => {
+      console.log(succeed.status);
+      setIsValidImgUrl(succeed.status === 200);
+    }, (rejected) => {
+      console.log(rejected)
+      setIsValidImgUrl(false);
+    });
+
+  }, [heroImgUrl]);
+
   return (
     <article className="mb-10 w-[200px]">
       {/* Restaurant image */}
       <div className="card__image">
-        <img
-          src={img ? img : ""}
-          alt={title}
-          className="w-full h-[170px] bg-gray-100"
-        />
+        {isValidImgUrl ? (
+          <img
+            src={heroImgUrl}
+            alt={name}
+            className="w-full h-[170px] bg-gray-100"
+          />
+        ) : (
+          <img
+            src={
+              "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/ce/47/18/under-the-banyan-tree.jpg?w=100&h=100&s=1"
+            }
+            alt={name}
+            className="w-full h-[170px] bg-gray-100"
+          />
+        )}
       </div>
 
       {/* Restaurant Details */}
       <div className="card__detail">
-        <h5 className="font-medium">{title}</h5>
+        <h5 className="font-medium">{name}</h5>
         <span className="card__detail-rating">
-          <StarRating count={rating} />
+          <StarRating count={averageRating} />
         </span>
         <div className="card__detail-status">
           <p className="text-[10px] uppercase">
-            {resType} · {level}
+            {establishmentTypeAndCuisineTags[0]} · {priceTag}
           </p>
           <div className="card__detail-container">
             <div
               className={`card__detail-dot ${
-                isOpen === "open".toUpperCase() ? "green" : "red"
+                currentOpenStatusCategory === "open".toUpperCase()
+                  ? "green"
+                  : "red"
               }`}
             />
             <p className="text-[10px]">
-              {isOpen === "open".toUpperCase() ? "OPEN NOW" : "CLOSED"}
+              {currentOpenStatusCategory === "open".toUpperCase()
+                ? "OPEN NOW"
+                : "CLOSED"}
             </p>
           </div>
         </div>
@@ -55,8 +94,10 @@ const RestaurantCard = ({ img, title, rating, resType, level, isOpen }) => {
       <Button addClass="btn-expanded" clicked={handleModalOpen} />
 
       <dialog id="modal">
-              <h1>{title}</h1>
-              <button className="btn-base" onClick={handleModalClose}>close</button>
+        <h1>{name}</h1>
+        <button className="btn-base" onClick={handleModalClose}>
+          close
+        </button>
       </dialog>
     </article>
   );
