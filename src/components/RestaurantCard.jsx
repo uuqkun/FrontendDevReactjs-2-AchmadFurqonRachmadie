@@ -1,7 +1,22 @@
+import { useState } from "react";
+import { Button, StarRating } from ".";
 
-import { Button, StarRating } from "./";
-
-const FoodCard = ({ img, title, rating, resType, level, isOpen }) => {
+const RestaurantCard = ({ img, title, rating, resType, level, isOpen }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const handleModalOpen = () => {
+    const modal = document.getElementById("modal");
+    setIsModalOpen(!isModalOpen);
+    
+    modal.showModal();
+  };
+  
+  const handleModalClose = () => {
+    const modal = document.getElementById("modal");
+    setIsModalOpen(!isModalOpen);
+    
+    modal.close();
+  };
   return (
     <article className="mb-10 w-[200px]">
       {/* Restaurant image */}
@@ -37,9 +52,14 @@ const FoodCard = ({ img, title, rating, resType, level, isOpen }) => {
       </div>
 
       {/* Go to details button */}
-      <Button addClass="btn-expanded" clicked={() => {}} />
+      <Button addClass="btn-expanded" clicked={handleModalOpen} />
+
+      <dialog id="modal">
+              <h1>{title}</h1>
+              <button className="btn-base" onClick={handleModalClose}>close</button>
+      </dialog>
     </article>
   );
 };
 
-export default FoodCard;
+export default RestaurantCard;

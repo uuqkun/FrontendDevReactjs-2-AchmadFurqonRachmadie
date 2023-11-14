@@ -49,3 +49,10 @@
   @apply w-full;
 }
 /* custom button styling ends */
+
+/* star rating styling starts */
+.rating__stars {
+  @apply flex gap-2;
+}
+
+/* star rating styling ends */

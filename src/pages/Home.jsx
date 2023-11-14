@@ -1,78 +1,38 @@
+import { useEffect, useState } from "react";
 import {
   Button,
   RadioFilter,
   DropDownFilter,
   Header,
-  FoodCard,
+  RestaurantCard,
 } from "../components";
+import { getDummyData, useFetch } from "../utils/useFetch";
 
 const Home = () => {
-  const restaurants = [
-    {
-      img: "",
-      title: "Restaurant xx",
-      rating: 4,
-      resType: "THAI",
-      level: "$$$",
-      isOpen: true,
-    },
-    {
-      img: "",
-      title: "Restaurant xx",
-      rating: 4,
-      resType: "THAI",
-      level: "$$$",
-      isOpen: false,
-    },
-    {
-      img: "",
-      title: "Restaurant xx",
-      rating: 4,
-      resType: "THAI",
-      level: "$$$",
-      isOpen: false,
-    },
-    {
-      img: "",
-      title: "Restaurant xx",
-      rating: 4,
-      resType: "THAI",
-      level: "$$$",
-      isOpen: false,
-    },
-    {
-      img: "",
-      title: "Restaurant xx",
-      rating: 4,
-      resType: "THAI",
-      level: "$$$",
-      isOpen: false,
-    },
-    {
-      img: "",
-      title: "Restaurant xx",
-      rating: 4,
-      resType: "THAI",
-      level: "$$$",
-      isOpen: false,
-    },
-    {
-      img: "",
-      title: "Restaurant xx",
-      rating: 4,
-      resType: "THAI",
-      level: "$$$",
-      isOpen: false,
-    },
-    {
-      img: "",
-      title: "Restaurant xx",
-      rating: 4,
-      resType: "THAI",
-      level: "$$$",
-      isOpen: true,
-    },
-  ];
+  const [restaurants, setRestaurants] = useState();
+
+  useEffect(() => {
+    // const url =
+    //   "https://tripadvisor16.p.rapidapi.com/api/v1/restaurant/searchRestaurants?locationId=304554";
+    // const options = {
+    //   method: "GET",
+    //   headers: {
+    //     "X-RapidAPI-Key": "0fd4dad000msh0b64d9a2bffa832p174c5bjsn6de351fb3d8c",
+    //     "X-RapidAPI-Host": "tripadvisor16.p.rapidapi.com",
+    //   },
+    // };
+
+    // useFetch(url, options)
+    //   .then((result) => {
+    //     setRestaurants(result);
+
+    //   })
+    //   .catch((ex) => console.log(ex));
+
+    setRestaurants(getDummyData);
+  }, []);
+
+  
 
   return (
     <main className="mx-auto w-[896px]">
@@ -100,17 +60,23 @@ const Home = () => {
       <section>
         <h3 className="mb-6">All Restaurants</h3>
         <ul className="flex flex-wrap gap-6">
-          {restaurants.map((item, index) => (
-            <FoodCard
-              key={index}
-              img={item.img}
-              title={item.title}
-              rating={item.rating}
-              level={item.level}
-              resType={item.resType}
-              isOpen={item.isOpen}
-            />
-          ))}
+          {restaurants != null || restaurants != undefined ? (
+            restaurants.map((item) => (
+              <RestaurantCard
+                key={item.restaurantsId}
+                img={item.heroImgUrl}
+                title={item.name}
+                rating={item.averageRating}
+                level={item.priceTag}
+                resType={item.establishmentTypeAndCuisineTags[0]}
+                isOpen={item.currentOpenStatusCategory}
+              />
+            ))
+          ) : (
+            <div>
+              <h3>Thank you for your patience...</h3>
+            </div>
+          )}
         </ul>
       </section>
     </main>
