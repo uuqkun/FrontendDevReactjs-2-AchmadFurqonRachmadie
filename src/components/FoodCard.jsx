@@ -1,7 +1,5 @@
-import React from "react";
 
 import { Button, StarRating } from "./";
-import ratingStar from "../assets/star.svg";
 
 const FoodCard = ({ img, title, rating, resType, level, isOpen }) => {
   return (
@@ -19,15 +17,21 @@ const FoodCard = ({ img, title, rating, resType, level, isOpen }) => {
       <div className="card__detail">
         <h5 className="font-medium">{title}</h5>
         <span className="card__detail-rating">
-          <StarRating />
+          <StarRating count={rating} />
         </span>
         <div className="card__detail-status">
-          <p className="text-[10px]">
+          <p className="text-[10px] uppercase">
             {resType} · {level}
           </p>
           <div className="card__detail-container">
-            <div className={`card__detail-dot ${isOpen ? "green" : "red"}`} />
-            <p className="text-[10px]">{isOpen ? "OPEN NOW" : "CLOSED"}</p>
+            <div
+              className={`card__detail-dot ${
+                isOpen === "open".toUpperCase() ? "green" : "red"
+              }`}
+            />
+            <p className="text-[10px]">
+              {isOpen === "open".toUpperCase() ? "OPEN NOW" : "CLOSED"}
+            </p>
           </div>
         </div>
       </div>
