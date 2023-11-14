@@ -7,27 +7,45 @@
   @apply font-quicksand;
 }
 
-
-.card__image { 
-
+/* FoodCard Styling starts */
+.card__image {
 }
 
 .card__detail {
-   @apply mt-6 mb-10;
+  @apply mt-6 mb-10;
 }
 
-.card__detail-rating { 
-
+.card__detail-rating {
 }
 
-.card__detail-status { 
+.card__detail-status {
   @apply flex justify-between;
 }
 
-.card__detail-container { 
-  
+.card__detail-container {
+  @apply flex items-center gap-2;
 }
 
-.card__detail-dot { 
-
+.card__detail-dot {
+  @apply w-2 h-2 rounded-full;
 }
+
+.red {
+  @apply bg-closed-red;
+}
+
+.green {
+  @apply bg-open-green;
+}
+
+/* FoodCard Styling ends */
+
+/* custom button styling starts */
+.btn-base {
+  @apply py-3 px-5 uppercase text-sm;
+}
+
+.btn-expanded {
+  @apply w-full;
+}
+/* custom button styling ends */

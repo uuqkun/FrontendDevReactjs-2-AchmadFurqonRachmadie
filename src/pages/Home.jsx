@@ -22,7 +22,7 @@ const Home = () => {
       rating: 4,
       resType: "THAI",
       level: "$$$",
-      isOpen: true,
+      isOpen: false,
     },
     {
       img: "",
@@ -30,7 +30,39 @@ const Home = () => {
       rating: 4,
       resType: "THAI",
       level: "$$$",
-      isOpen: true,
+      isOpen: false,
+    },
+    {
+      img: "",
+      title: "this is title",
+      rating: 4,
+      resType: "THAI",
+      level: "$$$",
+      isOpen: false,
+    },
+    {
+      img: "",
+      title: "this is title",
+      rating: 4,
+      resType: "THAI",
+      level: "$$$",
+      isOpen: false,
+    },
+    {
+      img: "",
+      title: "this is title",
+      rating: 4,
+      resType: "THAI",
+      level: "$$$",
+      isOpen: false,
+    },
+    {
+      img: "",
+      title: "this is title",
+      rating: 4,
+      resType: "THAI",
+      level: "$$$",
+      isOpen: false,
     },
     {
       img: "",
@@ -55,13 +87,19 @@ const Home = () => {
           <DropDownFilter />
           <DropDownFilter />
         </span>
-        <Button />
+        <Button
+          text="clear all"
+          bgColor="bg-white"
+          color="text-accent-blue"
+          addClass="border-[1px] border-gray-200"
+          clicked={() => {}}
+        />
       </section>
 
       {/* cards */}
       <section>
         <h3 className="mb-6">All Restaurants</h3>
-        <ul className="flex gap-6">
+        <ul className="flex flex-wrap gap-6">
           {restaurants.map((item, index) => (
             <FoodCard
               key={index}
@@ -69,8 +107,8 @@ const Home = () => {
               title={item.title}
               rating={item.rating}
               level={item.level}
-              resType={"China"}
-              isOpen={true}
+              resType={item.resType}
+              isOpen={item.isOpen}
             />
           ))}
         </ul>
