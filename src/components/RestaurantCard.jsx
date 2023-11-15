@@ -4,7 +4,7 @@ import { Button, RestaurantDetail, StarRating } from ".";
 const RestaurantCard = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isValidImgUrl, setIsValidImgUrl] = useState(true);
-  
+
   const {
     heroImgUrl,
     name,
@@ -19,21 +19,15 @@ const RestaurantCard = ({ data }) => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleModalClose = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
   useEffect(() => {
     // Image url checking
     const response = fetch(heroImgUrl);
 
     response.then(
       (succeed) => {
-        console.log(succeed.status);
         setIsValidImgUrl(succeed.status === 200);
       },
       (rejected) => {
-        console.log(rejected);
         setIsValidImgUrl(false);
       }
     );
@@ -91,7 +85,11 @@ const RestaurantCard = ({ data }) => {
       <Button addClass="btn-expanded" clicked={handleModalOpen} />
 
       {/* Modal */}
-      <RestaurantDetail isOpen={isModalOpen} closeModal={()=> setIsModalOpen(false)} data={data} />
+      <RestaurantDetail
+        isOpen={isModalOpen}
+        closeModal={() => setIsModalOpen(false)}
+        data={data}
+      />
     </article>
   );
 };
