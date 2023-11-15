@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { StarRating } from ".";
+import { Star, StarRating } from ".";
 
-const RestaurantDetail = ({ isOpen, closeModal, data }) => {
+function RestaurantDetail({ isOpen, closeModal, data }) {
   const [isValidImgUrl, setIsValidImgUrl] = useState(true);
+
   const {
     heroImgUrl,
     name,
@@ -12,6 +13,7 @@ const RestaurantDetail = ({ isOpen, closeModal, data }) => {
     establishmentTypeAndCuisineTags,
     currentOpenStatusCategory,
     reviewSnippets,
+    menuUrl,
   } = data;
 
   useEffect(() => {
@@ -20,21 +22,18 @@ const RestaurantDetail = ({ isOpen, closeModal, data }) => {
 
     response.then(
       (succeed) => {
-        console.log(succeed.status);
         setIsValidImgUrl(succeed.status === 200);
       },
       (rejected) => {
-        console.log(rejected);
         setIsValidImgUrl(false);
       }
-    );
+    )
+    .catch(err => console.log(err));
   }, [heroImgUrl]);
 
   const generateReview = () => {
     return Math.floor(Math.random() * (5 - 3) + 4);
   };
-
-  console.log(generateReview())
 
   return (
     <div>
@@ -43,7 +42,7 @@ const RestaurantDetail = ({ isOpen, closeModal, data }) => {
         id="modal"
         className={`card__modal ${isOpen ? "block" : "hidden"}`}
       >
-        <div className="card__modal-head mb-10">
+        <div className="card__modal-head mb-6">
           <div className="card__image mb-4">
             {isValidImgUrl ? (
               <img
@@ -61,13 +60,30 @@ const RestaurantDetail = ({ isOpen, closeModal, data }) => {
               />
             )}
           </div>
-          <h3 className="font-semibold">{name}</h3>
-          <span className="card__modal-rating">
-            <StarRating count={averageRating} />
-          </span>
         </div>
 
-        <h5 className="text-center font-medium mb-6">Reviews</h5>
+        {/* Detail header */}
+        <header className="card__modal-header">
+          <>
+            <span className="card__modal-rating">
+              <h3 className="font-semibold">{name}</h3>
+              <StarRating count={averageRating} />
+            </span>
+          </>
+          <button>
+            <a
+              href={menuUrl}
+              className="btn-base bg-red-200 rounded-md text-red-700 font-medium"
+            >
+              Menu
+            </a>
+          </button>
+        </header>
+
+        {/* reviews */}
+        <header className="card__modal-review-header">
+          <h5>Reviews  · </h5>{Star}
+        </header>
         <div className="card__modal-review">
           {reviewSnippets &&
             reviewSnippets.reviewSnippetsList.map((review, index) => (
@@ -104,6 +120,6 @@ const RestaurantDetail = ({ isOpen, closeModal, data }) => {
       </dialog>
     </div>
   );
-};
+}
 
 export default RestaurantDetail;
