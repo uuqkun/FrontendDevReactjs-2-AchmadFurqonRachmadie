@@ -7,6 +7,12 @@
   @apply font-quicksand;
 }
 
+/* Filters Styling starts */
+.filters__container {
+  @apply border-y-[1px] border-gray-100 flex justify-between gap-3 py-6 mb-20;
+}
+/* Filters Styling starts */
+
 /* FoodCard Styling starts */
 .card__image {
 }
@@ -57,18 +63,37 @@
 
 /* star rating styling ends */
 
-
 /* Modal styling starts */
-.card__modal { 
- @apply p-4 rounded-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+.card__modal {
+  @apply px-4 pt-4 pb-10 rounded-md w-[500px] m-0 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[999] shadow-xl;
 }
 
-.profile__wrapper { 
+.card__modal-header {
+  @apply flex justify-between items-center;
+}
+.card__modal-review-header {
+  @apply w-[90%] py-4 border-y-[1px] border-gray-200 my-10;
+}
+
+.card__modal-review-header h5 {
+  @apply text-center font-medium;
+}
+
+.profile__wrapper {
   @apply w-[60px] h-[60px] rounded-full overflow-hidden;
 }
 
-.card__modal-review { 
-  @apply flex gap-4;
+.card__modal-review {
+  @apply flex  justify-evenly gap-4;
+}
+
+.exit-modal {
+  @apply absolute -top-4 -right-4 bg-white w-[40px] h-[40px] rounded-full text-2xl font-bold text-red-500;
+}
+
+.bg-area {
+  background-color: rgba(65, 65, 65, 0.3);
+  @apply fixed top-0 left-0 w-full h-full;
 }
 
 /* Modal styling ends */
