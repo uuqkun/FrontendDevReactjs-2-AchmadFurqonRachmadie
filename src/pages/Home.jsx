@@ -12,24 +12,24 @@ const Home = () => {
   const [restaurants, setRestaurants] = useState();
 
   useEffect(() => {
-    const url =
-      "https://tripadvisor16.p.rapidapi.com/api/v1/restaurant/searchRestaurants?locationId=304554";
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "0fd4dad000msh0b64d9a2bffa832p174c5bjsn6de351fb3d8c",
-        "X-RapidAPI-Host": "tripadvisor16.p.rapidapi.com",
-      },
-    };
+    // const url =
+    //   "https://tripadvisor16.p.rapidapi.com/api/v1/restaurant/searchRestaurants?locationId=304554";
+    // const options = {
+    //   method: "GET",
+    //   headers: {
+    //     "X-RapidAPI-Key": "0fd4dad000msh0b64d9a2bffa832p174c5bjsn6de351fb3d8c",
+    //     "X-RapidAPI-Host": "tripadvisor16.p.rapidapi.com",
+    //   },
+    // };
 
-    useFetch(url, options)
-      .then((result) => {
-        setRestaurants(result);
+    // useFetch(url, options)
+    //   .then((result) => {
+    //     setRestaurants(result);
 
-      })
-      .catch((ex) => console.log(ex));
+    //   })
+    //   .catch((ex) => console.log(ex));
 
-    // setRestaurants(getDummyData);
+    setRestaurants(getDummyData);
   }, []);
 
   

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Button, StarRating } from ".";
+import { Button, RestaurantDetail, StarRating } from ".";
 
 const RestaurantCard = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isValidImgUrl, setIsValidImgUrl] = useState(true);
-
+  
   const {
     heroImgUrl,
     name,
@@ -12,34 +12,31 @@ const RestaurantCard = ({ data }) => {
     priceTag,
     establishmentTypeAndCuisineTags,
     currentOpenStatusCategory,
+    reviewSnippets,
   } = data;
 
   const handleModalOpen = () => {
-    const modal = document.getElementById("modal");
     setIsModalOpen(!isModalOpen);
-
-    modal.showModal();
   };
 
   const handleModalClose = () => {
-    const modal = document.getElementById("modal");
     setIsModalOpen(!isModalOpen);
-
-    modal.close();
   };
 
   useEffect(() => {
-    // Check image url(s)
+    // Image url checking
     const response = fetch(heroImgUrl);
 
-    response.then((succeed) => {
-      console.log(succeed.status);
-      setIsValidImgUrl(succeed.status === 200);
-    }, (rejected) => {
-      console.log(rejected)
-      setIsValidImgUrl(false);
-    });
-
+    response.then(
+      (succeed) => {
+        console.log(succeed.status);
+        setIsValidImgUrl(succeed.status === 200);
+      },
+      (rejected) => {
+        console.log(rejected);
+        setIsValidImgUrl(false);
+      }
+    );
   }, [heroImgUrl]);
 
   return (
@@ -93,12 +90,8 @@ const RestaurantCard = ({ data }) => {
       {/* Go to details button */}
       <Button addClass="btn-expanded" clicked={handleModalOpen} />
 
-      <dialog id="modal">
-        <h1>{name}</h1>
-        <button className="btn-base" onClick={handleModalClose}>
-          close
-        </button>
-      </dialog>
+      {/* Modal */}
+      <RestaurantDetail isOpen={isModalOpen} closeModal={()=> setIsModalOpen(false)} data={data} />
     </article>
   );
 };

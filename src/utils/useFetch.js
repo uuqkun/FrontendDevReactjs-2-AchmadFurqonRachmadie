@@ -1,4 +1,4 @@
-import { data } from "./dummyData";
+import { results } from "./dummyData";
 
 export const useFetch = async (url, options) => {
   const response = await fetch(url, options);
@@ -9,5 +9,5 @@ export const useFetch = async (url, options) => {
 };
 
 export function getDummyData() {
-  return data;
+  return results.data.data;
 }

@@ -56,3 +56,19 @@
 }
 
 /* star rating styling ends */
+
+
+/* Modal styling starts */
+.card__modal { 
+ @apply p-4 rounded-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+}
+
+.profile__wrapper { 
+  @apply w-[60px] h-[60px] rounded-full overflow-hidden;
+}
+
+.card__modal-review { 
+  @apply flex gap-4;
+}
+
+/* Modal styling ends */

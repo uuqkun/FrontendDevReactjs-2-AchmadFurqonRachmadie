@@ -4,4 +4,5 @@ export { default as DropDownFilter } from "./DropDownFilter";
 export { default as RadioFilter } from "./RadioFilter";
 export { default as Header } from "./Header";
 export { default as StarRating } from "./StarRating";
+export { default as RestaurantDetail } from "./RestaurantDetail";
 
