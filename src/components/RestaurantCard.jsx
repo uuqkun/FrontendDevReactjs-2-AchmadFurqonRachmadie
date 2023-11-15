@@ -62,7 +62,7 @@ const RestaurantCard = ({ data }) => {
 
       {/* Restaurant Details */}
       <div className="card__detail">
-        <h5 className="font-medium">{name}</h5>
+        <h5 className="font-medium">{name.substring(0, 20)}...</h5>
         <span className="card__detail-rating">
           <StarRating count={averageRating} />
         </span>
