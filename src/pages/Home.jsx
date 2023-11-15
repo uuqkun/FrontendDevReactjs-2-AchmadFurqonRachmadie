@@ -14,6 +14,7 @@ const Home = () => {
 
   // filters states
   const [open, setOpen] = useState(true);
+  const [price, setPrice] = useState("all");
 
   useEffect(() => {
     /*
@@ -40,37 +41,42 @@ const Home = () => {
     setRestaurants(getDummyData);
   }, []);
 
-  const handleLoadMore = () => {
-    {
-      setLimit(limit + 4);
-    }
-  };
-
-  const handleClearFilter = () => {
-    {
-      alert("filter cleared");
-    }
-  };
-
-  const handleOpenStatus = () => {
-    const element = document.getElementById("openStatus");
-
-    setOpen(!open);
-  };
-
   useEffect(() => {
+    // get sample data from utils
     const tempData = getDummyData();
+
+    // filter samples
     const filteredRestaurants = tempData.filter((rest) => {
       return (
-        (open === true && rest.currentOpenStatusCategory === "open".toUpperCase()) ||
-        (open === false && rest.currentOpenStatusCategory === null)
+        ((open === true && rest.currentOpenStatusCategory === "OPEN") ||
+          (open === false && rest.currentOpenStatusCategory === null)) &&
+        (price === "all" || getPrice(rest.priceTag).includes(price))
       );
     });
 
-
+    // set to current state
+    console.log(filteredRestaurants);
     setRestaurants(filteredRestaurants);
-  }, [open]);
+  }, [open, price]);
 
+  function getPrice(tag) {
+    let finalTag = "all";
+
+    switch (tag.split(" - ")[0]) {
+      case "$$":
+        finalTag = "cheap";
+        break;
+
+      case "$$$$":
+        finalTag = "expensive";
+        break;
+
+      default:
+        break;
+    }
+
+    return finalTag;
+  }
   return (
     <main className="mx-auto w-[896px]">
       {/* Header */}
@@ -78,21 +84,37 @@ const Home = () => {
 
       {/* filters */}
       <section className="filters__container">
-        <span className="flex gap-6">
+        <span className="flex items-center gap-6">
           <p>Filter by: </p>
-          {/* <RadioFilter /> */}
-          <div>
-            <label htmlFor="">Open</label>
+          {/* OPEN STATUS FILTER */}
+          <div className="flex gap-3 border-b-[1px] border-slate-400 pb-2">
             <input
               type="radio"
               name="openStatus"
               id="openStatus"
               value={open}
               checked={open ? true : false}
-              onClick={handleOpenStatus}
+              onClick={() => setOpen(!open)}
             />
+            <label htmlFor="openStatus">Open Now</label>
           </div>
-          <DropDownFilter />
+
+          {/* PRICE FILTER */}
+          <div className="border-b-[1px] border-slate-400 pb-2">
+            <select
+              id="price"
+              name="price"
+              value={price}
+              onChange={(e) => setPrice(e.currentTarget.value)}
+              className="flex outline-none w-[100px]"
+            >
+              <option value="all">All Price</option>
+              <option value="cheap">Cheap</option>
+              <option value="expensive">Expensive</option>
+            </select>
+          </div>
+
+          {/* PRICE FILTER */}
           <DropDownFilter />
         </span>
         <Button
@@ -100,7 +122,7 @@ const Home = () => {
           bgColor="bg-white"
           color="text-accent-blue"
           addClass="border-[1px] border-gray-200"
-          clicked={handleClearFilter}
+          clicked={() => alert("cleared")}
         />
       </section>
 
@@ -109,9 +131,8 @@ const Home = () => {
         <h3 className="mb-20">All Restaurants</h3>
         <ul className="flex flex-wrap gap-6">
           {restaurants != null || restaurants != undefined ? (
-            // restaurants
             restaurants
-            //   .slice(0, limit)
+              .slice(0, limit)
               .map((item) => (
                 <RestaurantCard key={item.restaurantsId} data={item} />
               ))
@@ -128,7 +149,7 @@ const Home = () => {
         color="text-accent-blue"
         text="load more"
         addClass="border-[2px] border-gray-200 px-8 block mx-auto"
-        clicked={handleLoadMore}
+        clicked={() => setLimit(limit + 4)}
       />
     </main>
   );
