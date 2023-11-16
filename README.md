@@ -1,8 +1,46 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Restaurant App
 
-Currently, two official plugins are available:
+This is a simple React application that displays a list of restaurants. It has 3 different filter features, those are filter by open status, price, and categories. I'm implenting CSR (Client Side Rendering) for open status and price filter, also SSR (Server Side Rendering) for categories feature.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The application was built using the following technologies: 
+- ReactJS v18.0.0
+- Node v16.14.0
+- TailwindCSS 3.3.5
+- Vite v4.4.5
+
+## Screenshots
+
+![App Screenshot](https://s6.imgcdn.dev/R4MxO.png)
+
+
+## Demo
+https://restaurant-app-omega-pied.vercel.app/
+
+
+## Authors
+
+- [@Achmad Furqon Rachmadie](https://www.github.com/uuqkun)
+
+
+## Requirements
+To run this application, you will need the following: 
+- Node v16.14.0 or higher
+- NPM v9.8.1
+## Installation
+
+Clone repository
+```bash
+  git clone https://github.com/uuqkun/FrontendDevReactjs-2-AchmadFurqonRachmadie.git
+  cd FrontendDevReactjs-2-AchmadFurqonRachmadie
+```
+
+Install node modules 
+```bash
+  npm i
+```
+
+Run Project
+```bash
+  npm run dev
+```
