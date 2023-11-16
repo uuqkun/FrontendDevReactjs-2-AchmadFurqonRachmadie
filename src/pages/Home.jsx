@@ -7,6 +7,7 @@ import {
   RestaurantCard,
 } from "../components";
 import { getDummyData, useFetch } from "../utils/useFetch";
+import { sampleCategories } from "../constants";
 
 const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -15,6 +16,9 @@ const Home = () => {
   // filters states
   const [open, setOpen] = useState(true);
   const [price, setPrice] = useState("all");
+  const [categories, setCategories] = useState("all");
+  const sample = sampleCategories;
+
 
   useEffect(() => {
     /*
@@ -35,7 +39,7 @@ const Home = () => {
 
       })
       .catch((ex) => console.log(ex));
-
+      
       */
 
     setRestaurants(getDummyData);
@@ -46,18 +50,19 @@ const Home = () => {
     const tempData = getDummyData();
 
     // filter samples
-    const filteredRestaurants = tempData.filter((rest) => {
+    const filteredRestaurants = tempData.filter((rest) => {      
       return (
         ((open === true && rest.currentOpenStatusCategory === "OPEN") ||
           (open === false && rest.currentOpenStatusCategory === null)) &&
-        (price === "all" || getPrice(rest.priceTag).includes(price))
+        (price === "all" || getPrice(rest.priceTag).includes(price)) &&
+        (categories === 'all' || rest.establishmentTypeAndCuisineTags.includes(categories))
       );
     });
 
     // set to current state
     console.log(filteredRestaurants);
     setRestaurants(filteredRestaurants);
-  }, [open, price]);
+  }, [open, price, categories]);
 
   function getPrice(tag) {
     let finalTag = "all";
@@ -72,6 +77,7 @@ const Home = () => {
         break;
 
       default:
+        finalTag = "all";
         break;
     }
 
@@ -106,7 +112,7 @@ const Home = () => {
               name="price"
               value={price}
               onChange={(e) => setPrice(e.currentTarget.value)}
-              className="flex outline-none w-[100px]"
+              className="outline-none w-[100px]"
             >
               <option value="all">All Price</option>
               <option value="cheap">Cheap</option>
@@ -114,8 +120,20 @@ const Home = () => {
             </select>
           </div>
 
-          {/* PRICE FILTER */}
-          <DropDownFilter />
+          {/* CATEGORIES FILTER */}
+          <div className="border-b-[1px] border-slate-400 pb-2">
+            <select
+              id="categories"
+              name="categories"
+              value={categories}
+              onChange={(e) => setCategories(e.currentTarget.value)}
+              className="outline-none w-[150px]"
+            >
+              {sample.map((item, index) => (
+                <option key={index} value={item}>{item}</option>
+              ))}
+            </select>
+          </div>
         </span>
         <Button
           text="clear all"
