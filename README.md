@@ -31,6 +31,7 @@ To run this application, you will need the following:
 ## API reference
 This project uses [Tripadvisor API](https://rapidapi.com/DataCrawler/api/tripadvisor16).
 - Current api call limit is 30/50 for one month
+- Contact me if data couldn't be fetched. I will get the new api key & token
 
 ## Installation
 
