@@ -28,7 +28,7 @@ To run this application, you will need the following:
 - Node v16.14.0 or higher
 - NPM v9.8.1
 
-## API documentation
+## API reference
 This project uses [Tripadvisor API](https://rapidapi.com/DataCrawler/api/tripadvisor16).
 - Current api call limit is 30/50 for one month
 
