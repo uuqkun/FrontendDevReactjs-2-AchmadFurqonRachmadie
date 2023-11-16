@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Star, StarRating } from ".";
+import { StarRating } from ".";
 
 function RestaurantDetail({ isOpen, closeModal, data }) {
   const [isValidImgUrl, setIsValidImgUrl] = useState(true);
@@ -20,15 +20,16 @@ function RestaurantDetail({ isOpen, closeModal, data }) {
     // Image url checking
     const response = fetch(heroImgUrl);
 
-    response.then(
-      (succeed) => {
-        setIsValidImgUrl(succeed.status === 200);
-      },
-      (rejected) => {
-        setIsValidImgUrl(false);
-      }
-    )
-    .catch(err => console.log(err));
+    response
+      .then(
+        (succeed) => {
+          setIsValidImgUrl(succeed.status === 200);
+        },
+        (rejected) => {
+          setIsValidImgUrl(false);
+        }
+      )
+      .catch((err) => console.log(err));
   }, [heroImgUrl]);
 
   const generateReview = () => {
@@ -42,6 +43,7 @@ function RestaurantDetail({ isOpen, closeModal, data }) {
         id="modal"
         className={`card__modal ${isOpen ? "block" : "hidden"}`}
       >
+        {/* Detail image */}
         <div className="card__modal-head mb-6">
           <div className="card__image mb-4">
             {isValidImgUrl ? (
@@ -64,31 +66,37 @@ function RestaurantDetail({ isOpen, closeModal, data }) {
 
         {/* Detail header */}
         <header className="card__modal-header">
-          <>
-            <span className="card__modal-rating">
-              <h3 className="font-semibold">{name}</h3>
-              <StarRating count={averageRating} />
-            </span>
-          </>
-          <button>
-            <a
-              href={menuUrl}
-              className="btn-base bg-red-200 rounded-md text-red-700 font-medium"
-            >
-              Menu
-            </a>
-          </button>
+          <span className="card__modal-rating">
+            <h3 className="font-semibold">{name}</h3>
+            <StarRating count={averageRating} />
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit accusamus in dolorem illum eaque deserunt eius beatae quam libero laborum?</p>
+          </span>
+          
         </header>
 
-        {/* reviews */}
-        <header className="card__modal-review-header">
-          <h5>Reviews  · </h5>{Star}
+        {/* Detail Categories */}
+        <section className="">
+          <header className="card__modal-detail-header">
+            <h5>Categories</h5>
+          </header>
+          <div className="flex gap-4 justify-center">
+            {establishmentTypeAndCuisineTags.map((tag) => (
+              <p key={tag} className="p-2 font-semibold min-w-[60px]">
+                {tag}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        {/* Detail reviews */}
+        <header className="card__modal-detail-header">
+          <h5>Reviews</h5>
         </header>
         <div className="card__modal-review">
           {reviewSnippets &&
             reviewSnippets.reviewSnippetsList.map((review, index) => (
               <figure key={index} className="w-[150px]">
-                <figcaption className="w-full">
+                <figcaption className="w-full flex flex-col justify-between min-h-[220px]">
                   <div className="profile__wrapper mx-auto">
                     <img
                       src="https://th.bing.com/th/id/OIP.UGlKxiZQylR3CnJIXSbFIAHaLL?pid=ImgDet&rs=1"

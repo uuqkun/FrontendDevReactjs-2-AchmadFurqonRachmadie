@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   Button,
-  RadioFilter,
-  DropDownFilter,
   Header,
   RestaurantCard,
 } from "../components";

@@ -65,18 +65,18 @@
 
 /* Modal styling starts */
 .card__modal {
-  @apply px-4 pt-4 pb-10 rounded-md w-[500px] m-0 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[999] shadow-xl;
+  @apply px-4 pt-4 pb-10 rounded-md w-[500px] max-h-[650px] overflow-y-auto m-0 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[999] shadow-xl;
 }
 
 .card__modal-header {
   @apply flex justify-between items-center;
 }
-.card__modal-review-header {
-  @apply w-[90%] py-4 border-y-[1px] border-gray-200 my-10;
+.card__modal-detail-header {
+  @apply w-[90%] py-4 border-y-[1px] border-gray-200 my-10 text-center mx-auto;
 }
 
 .card__modal-review-header h5 {
-  @apply text-center font-medium;
+  @apply text-center font-medium text-accent-blue;
 }
 
 .profile__wrapper {
@@ -88,7 +88,7 @@
 }
 
 .exit-modal {
-  @apply absolute -top-4 -right-4 bg-white w-[40px] h-[40px] rounded-full text-2xl font-bold text-red-500;
+  @apply absolute top-0 right-0 bg-white w-[40px] h-[40px] rounded-2xl text-2xl font-bold text-red-500;
 }
 
 .bg-area {
