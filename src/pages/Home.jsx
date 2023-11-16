@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Header, RestaurantCard } from "../components";
-import { getDummyData, useFetch } from "../utils/useFetch";
+import { getDummyData, getRestaurants } from "../utils/useFetch";
 import { sampleCategories } from "../constants";
 
 const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [limit, setLimit] = useState(8);
+  const initRestaurant = useRef(restaurants);
 
   // filters states
   const [open, setOpen] = useState(true);
@@ -15,72 +16,58 @@ const Home = () => {
   // filter by category data samples
   const sample = sampleCategories;
 
+  // Fetch all restaurants data
   useEffect(() => {
-    const url =
-      "https://tripadvisor16.p.rapidapi.com/api/v1/restaurant/searchRestaurants?locationId=304554";
-    const options = {
-      method: "GET",
-      params: {
-        establishmentTypeAndCuisineTags: categories,
-      },
-      headers: {
-        "X-RapidAPI-Key": "0fd4dad000msh0b64d9a2bffa832p174c5bjsn6de351fb3d8c",
-        "X-RapidAPI-Host": "tripadvisor16.p.rapidapi.com",
-      },
-    };
-
-    useFetch(url, options)
-      .then(
-        (succeed) => {
-          const filteredResult = succeed.filter((rest) => {
-            return (
-              ((open === true && rest.currentOpenStatusCategory === "OPEN") ||
-                (open === false && rest.currentOpenStatusCategory === null)) &&
-              (price === "all" || getPrice(rest.priceTag).includes(price)) &&
-              (categories === "all" ||
-                rest.establishmentTypeAndCuisineTags.includes(categories))
-            );
-          });
-
-          console.log(filteredResult);
-          setRestaurants(filteredResult);
-        },
-        (rejected) => {
-          console.log("rejectted " + rejected)
-          const filteredResult = getDummyData().filter((rest) => {
-            return (
-              ((open === true && rest.currentOpenStatusCategory === "OPEN") ||
-                (open === false && rest.currentOpenStatusCategory === null)) &&
-              (price === "all" || getPrice(rest.priceTag).includes(price)) &&
-              (categories === "all" ||
-                rest.establishmentTypeAndCuisineTags.includes(categories))
-            );
-          });
-
-          setRestaurants(filteredResult);
-        }
-      )
+    getRestaurants()
+      .then((result) => {
+        // save all data to ref
+        initRestaurant.current = result;
+        console.log(result)
+        setRestaurants(result);
+      })
       .catch((ex) => console.log(ex));
 
-    // setRestaurants(getDummyData);
-  }, [categories]);
+    console.log("SSR 1 get all data");
+  }, []);
 
+  // Client Side Rendering for open status & price
   useEffect(() => {
-    // get sample data from utils
-    // const tempData = getDummyData();
-
     // filter samples
-    const filteredRestaurants = restaurants.filter((rest) => {
+    const filteredRestaurants = initRestaurant.current.filter((rest) => {
       return (
         ((open === true && rest.currentOpenStatusCategory === "OPEN") ||
           (open === false && rest.currentOpenStatusCategory === null)) &&
-        (price === "all" || getPrice(rest.priceTag).includes(price))
+        (price === "all" || getPrice(rest.priceTag).includes(price)) &&
+        (categories === "all" ||
+          rest.establishmentTypeAndCuisineTags.includes(categories))
       );
     });
 
     // set to current state
+    console.log("CSR");
     setRestaurants(filteredRestaurants);
-  }, [open, price]);
+  }, [open, price, setLimit]);
+
+  // Server side Rendering for categories
+  useEffect(() => {
+    getRestaurants({ establishmentTypeAndCuisineTags: categories })
+      .then((result) => {
+        const filteredRestaurants = result.filter((rest) => {
+          return (
+            ((open === true && rest.currentOpenStatusCategory === "OPEN") ||
+              (open === false && rest.currentOpenStatusCategory === null)) &&
+            (price === "all" || getPrice(rest.priceTag).includes(price)) &&
+            (categories === "all" ||
+              rest.establishmentTypeAndCuisineTags.includes(categories))
+          );
+        });
+
+        setRestaurants(filteredRestaurants);
+      })
+      .catch((ex) => console.log(ex));
+
+    console.log("CSR categories");
+  }, [categories]);
 
   function getPrice(tag) {
     let finalTag = "all";
