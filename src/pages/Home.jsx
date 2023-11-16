@@ -17,6 +17,8 @@ const Home = () => {
   const [open, setOpen] = useState(true);
   const [price, setPrice] = useState("all");
   const [categories, setCategories] = useState("all");
+
+  // filter by category data samples
   const sample = sampleCategories;
 
 
@@ -140,7 +142,11 @@ const Home = () => {
           bgColor="bg-white"
           color="text-accent-blue"
           addClass="border-[1px] border-gray-200"
-          clicked={() => alert("cleared")}
+          clicked={() => {
+            setOpen(true);
+            setPrice('all');
+            setCategories('all');
+          }}
         />
       </section>
 
