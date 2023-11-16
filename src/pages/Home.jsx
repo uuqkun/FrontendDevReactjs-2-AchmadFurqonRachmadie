@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Header,
-  RestaurantCard,
-} from "../components";
+import { Button, Header, RestaurantCard } from "../components";
 import { getDummyData, useFetch } from "../utils/useFetch";
 import { sampleCategories } from "../constants";
 
@@ -19,50 +15,72 @@ const Home = () => {
   // filter by category data samples
   const sample = sampleCategories;
 
-
   useEffect(() => {
-    /*
     const url =
       "https://tripadvisor16.p.rapidapi.com/api/v1/restaurant/searchRestaurants?locationId=304554";
     const options = {
       method: "GET",
+      params: {
+        establishmentTypeAndCuisineTags: categories,
+      },
       headers: {
         "X-RapidAPI-Key": "0fd4dad000msh0b64d9a2bffa832p174c5bjsn6de351fb3d8c",
         "X-RapidAPI-Host": "tripadvisor16.p.rapidapi.com",
       },
     };
 
-
     useFetch(url, options)
-      .then((result) => {
-        setRestaurants(result);
+      .then(
+        (succeed) => {
+          const filteredResult = succeed.filter((rest) => {
+            return (
+              ((open === true && rest.currentOpenStatusCategory === "OPEN") ||
+                (open === false && rest.currentOpenStatusCategory === null)) &&
+              (price === "all" || getPrice(rest.priceTag).includes(price)) &&
+              (categories === "all" ||
+                rest.establishmentTypeAndCuisineTags.includes(categories))
+            );
+          });
 
-      })
+          console.log(filteredResult);
+          setRestaurants(filteredResult);
+        },
+        (rejected) => {
+          console.log("rejectted " + rejected)
+          const filteredResult = getDummyData().filter((rest) => {
+            return (
+              ((open === true && rest.currentOpenStatusCategory === "OPEN") ||
+                (open === false && rest.currentOpenStatusCategory === null)) &&
+              (price === "all" || getPrice(rest.priceTag).includes(price)) &&
+              (categories === "all" ||
+                rest.establishmentTypeAndCuisineTags.includes(categories))
+            );
+          });
+
+          setRestaurants(filteredResult);
+        }
+      )
       .catch((ex) => console.log(ex));
-      
-      */
 
-    setRestaurants(getDummyData);
-  }, []);
+    // setRestaurants(getDummyData);
+  }, [categories]);
 
   useEffect(() => {
     // get sample data from utils
-    const tempData = getDummyData();
+    // const tempData = getDummyData();
 
     // filter samples
-    const filteredRestaurants = tempData.filter((rest) => {      
+    const filteredRestaurants = restaurants.filter((rest) => {
       return (
         ((open === true && rest.currentOpenStatusCategory === "OPEN") ||
           (open === false && rest.currentOpenStatusCategory === null)) &&
-        (price === "all" || getPrice(rest.priceTag).includes(price)) &&
-        (categories === 'all' || rest.establishmentTypeAndCuisineTags.includes(categories))
+        (price === "all" || getPrice(rest.priceTag).includes(price))
       );
     });
 
     // set to current state
-    console.log(filteredRestaurants);
     setRestaurants(filteredRestaurants);
-  }, [open, price, categories]);
+  }, [open, price]);
 
   function getPrice(tag) {
     let finalTag = "all";
@@ -130,7 +148,9 @@ const Home = () => {
               className="outline-none w-[150px]"
             >
               {sample.map((item, index) => (
-                <option key={index} value={item}>{item}</option>
+                <option key={index} value={item}>
+                  {item}
+                </option>
               ))}
             </select>
           </div>
@@ -142,8 +162,8 @@ const Home = () => {
           addClass="border-[1px] border-gray-200"
           clicked={() => {
             setOpen(true);
-            setPrice('all');
-            setCategories('all');
+            setPrice("all");
+            setCategories("all");
           }}
         />
       </section>
